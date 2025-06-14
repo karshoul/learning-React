@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+</head>
+<body>
+    <!--
+        1. React.Element() -> React Element(type, props, children)
+        2. So sánh với Document.createElement() -> DOM Element
+        3. Thay đổi: id, className, style, ...
+        4. Thêm: text, HTML,...
+         
+    -->
+          <div id="root"></div>
+    <script type="text/babel">
+        /*Bài 1: Tạo: 
+          <h1 title="Hello" class="heading">Hello Guys</h1>
+          */  
+        //DOM
+        // const h1DOM = document.createElement('h1');
+
+        // h1DOM.title = 'Hello';
+        // h1DOM.className = 'heading';
+
+        // h1DOM.innerText = 'Hello Guys';
+
+        // document.body.appendChild(h1DOM);
+
+        // //React 
+        // const h1React = React.createElement('h1', {
+        //     title: 'Hello',
+        //     className: 'heading',
+        //     style: {
+        //         color: 'blue',
+        //         backgroundColor: 'black',
+        //         fontSize: '20px',
+        //         fontWeight: 'bold',
+        //         textAlign: 'center'
+        //     }
+        // }, 'Hello Guys');
+
+        /*Bài 2: Tạo:
+            <ul>
+                <li>JavaScript</li>
+                <li>React</li>
+            </ul> */
+
+        // const ulDOM = document.createElement('ul');
+        // ulDOM.id = 'ul-list';
+        // ulDOM.style.color = 'red';
+
+        // const li1DOM1 = document.createElement('li');
+        // li1DOM1.innerText = 'JavaScript';
+        // li1DOM1.id = 'li-js';
+
+        // const li1DOM2 = document.createElement('li');
+        // li1DOM2.innerText = 'React';
+        // li1DOM2.id = 'li-react';
+
+        // ulDOM.appendChild(li1DOM1);
+        // ulDOM.appendChild(li1DOM2);
+
+        // document.body.appendChild(ulDOM);
+
+
+        //React
+        // const ulReact = React.createElement(
+        //     'ul',
+        //      {
+        //         id: 'ul-list',
+        //         style: {
+        //             listStyleType: 'none',
+        //             padding: 0,
+        //             margin: 0
+        //         }
+        //      }, 
+        //     React.createElement('li', {id: 'li-JS'}, 'JavaScript'),
+        //     React.createElement('li', {id: 'li-React'}, 'React')
+        // );
+        // console.log(ulReact);
+        // // document.body.appendChild(ulReact); // Không thể append React Element trực tiếp vào DOM
+        // // Để hiển thị React Element, cần sử dụng ReactDOM.render()
+        // ReactDOM.render(ulReact, document.body);
+        
+
+        /*Bài 3: Tạo:
+        <div class="post-item">
+            <h2 title="Học ReactJS">Học ReactJS</h2>
+            <p>Học ReactJS là một trong những kỹ năng quan trọng trong phát triển web hiện đại.</p>
+        </div> */
+
+        // const postItem = React.createElement(
+        //     'div',
+        //     { className: 'post-item' },
+        //     React.createElement('h2', { title: 'Học ReactJS' }, 'Học ReactJS'),
+        //     React.createElement('p', null, 'Học ReactJS là một trong những kỹ năng quan trọng trong phát triển web hiện đại.')
+        // );
+        
+        // //get root element
+        // const container = document.getElementById('root');
+        
+        // //React@17
+        // //React-DOM -> render UI
+        // //ReactDOM.render(postItem, root);
+
+        // //React@18
+        // const root = ReactDOM.createRoot(container);
+        // root.render(postItem);
+
+        /*Bài 5: 
+        Tạo: 
+            <ul>
+                <li>Javascript</li>
+                <li>ReactJS</li>
+            </ul>
+        */
+
+        // const ul = <ul>
+        //         <li>Javascript</li>
+        //         <li>ReactJS</li>
+        //     </ul>
+
+        // //React@18
+        // const container = document.getElementById('root');
+        // const root = ReactDOM.createRoot(container);
+        // root.render(ul);
+        
+        //React@17
+        // ReactDOM.render(ul, document.getElementById('root'))
+
+
+        /*Bài 6:
+        Tạo: 
+            <div class="post-item">
+                <h2 title="Học React tại F8">Học ReactJS </h2>
+                <p>Học React từ cơ bản tới nâng cao</p>
+            </div>
+        */
+
+        //Bài tập
+        // const reactCourse = 'React F8';
+        // const courses = [{
+        //     name: 'HTML, css'
+        // }, 
+        // {
+        //     name: 'Responsive web design'
+        // },
+        // {
+        //     name: 'ReactJS'
+        // }]
+
+        // const ul = 
+        //     <ul>
+        //         {courses.map((course, index) => 
+        //                 <li key={index}>{course.name}</li>
+        //         )}
+        //     </ul>
+            
+        // const container = document.getElementById('root');
+        // const root = ReactDOM.createRoot(container);
+        // root.render(ul);
+
+        //Cách chạy cả 2 element cùng lúc
+        // const jsx = 
+        //     <React.Fragment>
+        //         <h1>hello</h1>
+        //         <h2>hi</h2>    
+        //     </React.Fragment>
+
+        //React element type
+        //Dùng function
+        // function Header() {
+        //     return (
+        //         <div className="header">Header</div>    
+        //     )
+        // }
+
+        // //Dùng class
+        // class Content extends React.Component {
+        //     render(){
+        //         return (
+        //             <div className="body">Body</div>    
+        //         )
+        //     }
+        // }
+
+        // const app = (
+        //     <div>
+        //         <Header/>
+        //         <Content/>   
+        //         <div className="footer">Footer</div>    
+        //     </div>
+        // )
+
+        // const container = document.getElementById('root')
+        // const root = ReactDOM.createRoot(container)
+        // root.render(app)
+
+        //Bài tập
+
+        const arrays = [
+            {
+                img: 'https://files.fullstack.edu.vn/f8-prod/blog_posts/107/613a1f3685814.png',
+                title: 'Các nguồn tài nguyên hữu ích cho 1 front-end developer',
+                description: 'Bài viết này nhằm tổng hợp lại các dự án mà học viên F8 đã hoàn thành và chia sẻ trên nhóm Học lập trình web F8.',
+                published: 'Một ngày trước. 10 phút đọc'
+            },
+            {
+                img: 'https://files.fullstack.edu.vn/f8-prod/blog_posts/107/613a1f3685814.png',
+                title: 'Các nguồn tài nguyên hữu ích cho 1 front-end developer',
+                description: 'Bài viết này nhằm tổng hợp lại các dự án mà học viên F8 đã hoàn thành và chia sẻ trên nhóm Học lập trình web F8.',
+                published: 'Một ngày trước. 10 phút đọc'
+            },
+            {
+                img: 'https://files.fullstack.edu.vn/f8-prod/blog_posts/107/613a1f3685814.png',
+                title: 'Các nguồn tài nguyên hữu ích cho 1 front-end developer',
+                description: 'Bài viết này nhằm tổng hợp lại các dự án mà học viên F8 đã hoàn thành và chia sẻ trên nhóm Học lập trình web F8.',
+                published: 'Một ngày trước. 10 phút đọc'
+            }
+        ]
+        
+
+        function PostItem(array, index) {
+                return (
+                    <div className="post-Item" key={index}>
+                        <img src={array.img} alt={array.title}></img>
+                        <h2 className="post-title">{array.title}</h2>
+                        {array.description}
+                        {array.published}
+                    </div>
+                )
+        }
+
+        const app2 = (
+            <div className="wrapper">
+                {arrays.map(PostItem)}
+            </div>
+        )
+
+
+        const container = document.getElementById('root')
+        const root = ReactDOM.createRoot(container)
+        root.render(app2)
+
+    </script>
+</body> 
+</html>
