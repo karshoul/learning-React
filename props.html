@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <!--
+        props 
+
+        - React Element
+            - Sử dụng props giống như với attribute của thẻ HTMl
+            - 2 props class, for => className, htmlFor
+            - Phải tuân theo quy ước có sẵn
+        - React components
+            - Sử dụng props giống như đối số của components
+            - Tự do đặt tên props
+                - Đặt theo camelCase
+                -* Có thể bao gồm dấu gạch ngang
+            - Chú ý: 
+                - prop "key" là prop đặc biệt 
+                - props cơ bản là đối số của component
+                    => Props có thể là bất cứ kiểu dữ liệu gì
+                - Sử dụng destructuring
+    -->
+    <div id="root"></div>
+    <script type="text/babel">
+        //PostItem.js
+         function PostItem() {
+            return (
+                <div className="post-item">
+                    <h1>Xin chào từ PostItem!</h1>
+                </div>
+            );
+        }
+
+        //App.js
+        // Component App chính (đã đổi tên thành App với chữ cái đầu viết hoa)
+        function App() {
+            return (
+                <div id="wrapper">
+                    <p>Xin chào từ Component App!</p>
+                    {/* Sử dụng component PostItem */}
+                    <PostItem />
+                </div>
+            );
+        }
+         // Lấy phần tử DOM nơi React sẽ render ứng dụng
+        const container = document.getElementById("root");
+
+        // Khởi tạo root React (cách đúng)
+        const root = ReactDOM.createRoot(container);
+
+        // Render component App vào root (cách đúng)
+        root.render(<App />);
+
+    </script>
+</body>
+</html>
