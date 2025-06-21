@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Diện Tích Các Hình</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .shape-selection {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        select, input[type="number"] {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* Include padding in width */
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #28a745; /* Success color */
+        }
+        .input-group {
+            margin-top: 15px;
+            display: none; /* Hidden by default */
+        }
+        .input-group.active {
+            display: block; /* Show when active */
+        }
+        .shape-display {
+            margin: 20px auto;
+            width: 100px;
+            height: 100px;
+            background-color: #ffc107; /* Default color */
+            border: 2px solid #e0a800;
+            display: none; /* Hidden by default */
+        }
+        #circle-display {
+            border-radius: 50%;
+        }
+        #square-display {
+            /* No specific radius, default to square */
+        }
+        #rectangle-display {
+            width: 120px; /* Example width */
+            height: 80px; /* Example height */
+        }
+        .shape-display.active {
+            display: block; /* Show when active */
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tính Diện Tích Các Hình Học</h1>
+
+    <div class="container">
+        <div class="shape-selection">
+            <label for="shapeSelect">Chọn loại hình:</label>
+            <select id="shapeSelect" onchange="showInputs()">
+                <option value="none">-- Chọn hình --</option>
+                <option value="circle">Hình Tròn</option>
+                <option value="rectangle">Hình Chữ Nhật</option>
+                <option value="square">Hình Vuông</option>
+            </select>
+        </div>
+
+        <div id="circle-display" class="shape-display"></div>
+        <div id="rectangle-display" class="shape-display"></div>
+        <div id="square-display" class="shape-display"></div>
+
+
+        <div id="circleInputs" class="input-group">
+            <label for="radiusInput">Nhập bán kính:</label>
+            <input type="number" id="radiusInput" placeholder="Bán kính (ví dụ: 5)" min="0" step="any">
+        </div>
+
+        <div id="rectangleInputs" class="input-group">
+            <label for="lengthInput">Nhập chiều dài:</label>
+            <input type="number" id="lengthInput" placeholder="Chiều dài (ví dụ: 10)" min="0" step="any">
+            <label for="widthInput">Nhập chiều rộng:</label>
+            <input type="number" id="widthInput" placeholder="Chiều rộng (ví dụ: 5)" min="0" step="any">
+        </div>
+
+        <div id="squareInputs" class="input-group">
+            <label for="sideInput">Nhập cạnh:</label>
+            <input type="number" id="sideInput" placeholder="Cạnh (ví dụ: 7)" min="0" step="any">
+        </div>
+
+        <button onclick="calculateArea()">Tính Diện Tích</button>
+
+        <div id="result"></div>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+        function showInputs() {
+            const shape = document.getElementById('shapeSelect').value;
+            // Hide all input groups and shape displays
+            document.querySelectorAll('.input-group').forEach(group => group.classList.remove('active'));
+            document.querySelectorAll('.shape-display').forEach(display => display.classList.remove('active'));
+            document.getElementById('result').textContent = ''; // Clear previous result
+            document.getElementById('errorMessage').textContent = ''; // Clear previous error
+
+            // Show relevant input group and shape display
+            if (shape === 'circle') {
+                document.getElementById('circleInputs').classList.add('active');
+                document.getElementById('circle-display').classList.add('active');
+            } else if (shape === 'rectangle') {
+                document.getElementById('rectangleInputs').classList.add('active');
+                document.getElementById('rectangle-display').classList.add('active');
+            } else if (shape === 'square') {
+                document.getElementById('squareInputs').classList.add('active');
+                document.getElementById('square-display').classList.add('active');
+            }
+        }
+
+        function calculateArea() {
+            const shape = document.getElementById('shapeSelect').value;
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('errorMessage');
+            let area = 0;
+            let isValid = true;
+
+            // Clear previous messages
+            resultDiv.textContent = '';
+            errorDiv.textContent = '';
+
+            if (shape === 'circle') {
+                const radius = parseFloat(document.getElementById('radiusInput').value);
+                if (isNaN(radius) || radius < 0) {
+                    errorDiv.textContent = "Lỗi: Vui lòng nhập một số dương hợp lệ cho bán kính.";
+                    isValid = false;
+                } else {
+                    area = Math.PI * radius * radius;
+                }
+            } else if (shape === 'rectangle') {
+                const length = parseFloat(document.getElementById('lengthInput').value);
+                const width = parseFloat(document.getElementById('widthInput').value);
+                if (isNaN(length) || length <= 0 || isNaN(width) || width <= 0) {
+                    errorDiv.textContent = "Lỗi: Vui lòng nhập các số dương hợp lệ cho chiều dài và chiều rộng.";
+                    isValid = false;
+                } else {
+                    area = length * width;
+                }
+            } else if (shape === 'square') {
+                const side = parseFloat(document.getElementById('sideInput').value);
+                if (isNaN(side) || side <= 0) {
+                    errorDiv.textContent = "Lỗi: Vui lòng nhập một số dương hợp lệ cho cạnh.";
+                    isValid = false;
+                } else {
+                    area = side * side;
+                }
+            } else {
+                errorDiv.textContent = "Vui lòng chọn một loại hình để tính toán.";
+                isValid = false;
+            }
+
+            if (isValid && shape !== 'none') {
+                resultDiv.textContent = `Diện tích của ${getShapeName(shape)} là: ${area.toFixed(2)}`;
+            }
+        }
+
+        function getShapeName(shape) {
+            switch (shape) {
+                case 'circle': return 'hình tròn';
+                case 'rectangle': return 'hình chữ nhật';
+                case 'square': return 'hình vuông';
+                default: return 'hình';
+            }
+        }
+
+        // Initialize by hiding all inputs
+        document.addEventListener('DOMContentLoaded', showInputs);
+    </script>
+</body>
+</html> 
