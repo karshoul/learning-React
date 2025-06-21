@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .primary-button{
+            color: white;
+            background-color: aquamarine;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin: 4px;
+            display: block;
+            width: fit-content;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!--
+        Làm việc với JSX
+
+        //Phần 1
+        - Xử lí DOM Events
+        - Component do chúng ta định nghĩa phải viết in hoa ký tự đầu
+            - Chọn component trong 1 object
+        - Booleans, Null & Undefined không được render
+        - Kêt hợp toán tử logic để render theo điều kiện
+
+        // Phần 2
+        - Props trong JSX
+            - <YourComponent
+                propName1="String literals"
+                propName2={expression} (biểu thức - toán tử 3 ngôi, cộng trừ nhân chia,....)
+            />
+            - Props default to "true"
+            - Spread/Rest props
+            - Children prop
+                - <YourComponent>String literals</YourConponent>
+                - <YourComponent>{expression}</YourComponent>
+            - Render props
+    -->
+    
+    <div id="root"></div>
+    <script type="text/babel">
+        //VD1:
+        // const Form = {
+        //     Input() {
+        //         return <input/>
+        //     },
+        //     Checkbox() {
+        //         return <input type="checkbox"/>
+        //     }
+        // }
+
+        // function App() {
+
+        //     const type = "Input"
+
+        //     const Component = Form[type]
+
+        //     return(
+        //         <div id="wrapper">
+        //             <Component/>    
+        //         </div>
+        //     )
+        // }
+
+        //VD2:
+        
+        // function callback(){
+        //     console.log(Math.random())
+        // }
+        // function Component({className, title, href, onClick}){
+        //     let Component = "button"
+        //     let props = {} 
+        //     if(className)
+        //         props.className = className
+        //     if(href){
+        //         Component = "a"
+        //         props.href = href
+        //     }
+        //     if(onClick) props.onClick = onClick
+        //     return <Component {...props}>{title}</Component>
+        // }
+        // function App(){
+        //     return (
+        //         <div id="wrapper">
+        //             <Component 
+        //                 className="primary-button"
+        //                 title="Click me!"
+        //                 href="https://fullstack.edu.vn/learning/reactjs?id=f106ce66-7cfa-4963-94ad-81e96945a576"
+        //                 onClick={callback}
+        //             />
+        //         </div>
+        //     )
+        // }
+
+        // 2 cách truyền props
+        // function Button({title, primary}){
+        //     return(
+        //         <button>{title}</button>
+        //     )
+        // }
+
+        // function App(){
+        //     return(
+        //         <div id="wrapper">
+        //             <Button primary={true} title={"Click me"} />  
+        //             <Button primary={true} title="Click me" />  
+        //         </div>
+        //     )
+        // }
+
+        //  - Spread/Rest props
+        function Input({label, ...inputProps}){
+            return(
+                <div>
+                    <label>{label}</label>
+                    <input {...inputProps}/>
+                </div>
+            )
+        }
+
+        function App(){
+            return(
+                <div id="wrapper">
+                    <Input
+                        label="Full Name"
+                        placeholder="Enter Name "
+                    />    
+                </div>
+            )
+        }
+
+        // ReactDOM.render(<App/>, document.body)
+        const container = document.getElementById("root")
+        const root = ReactDOM.createRoot(container)
+        root.render(<App/>)
+    </script>
+</body>
+</html>
